@@ -1,5 +1,13 @@
 import React, { Component } from "react";
-import { Card, CardText, CardBody, CardTitle, CardSubtitle } from "reactstrap";
+import {
+  Spinner,
+  Card,
+  CardText,
+  CardBody,
+  CardTitle,
+  CardSubtitle,
+  CardLink
+} from "reactstrap";
 
 class PostCard extends Component {
   constructor(props) {
@@ -32,12 +40,25 @@ class PostCard extends Component {
 
   render() {
     if (!this.state.post) {
-      return <h3>LOADING</h3>;
+      return <Spinner color="primary" />;
     }
     return (
-      <Card>
+      <Card
+        body
+        inverse
+        style={{ backgroundColor: "#333", borderColor: "#333" }}
+      >
         <CardBody>
-          <CardTitle>{this.state.post.title}</CardTitle>
+          <CardTitle>
+            <h3>{this.state.post.title}</h3>
+          </CardTitle>
+          <CardLink href={this.state.post.url}>{this.state.post.url}</CardLink>
+          <CardText>
+            <div dangerouslySetInnerHTML={{ __html: this.state.post.text }} />
+          </CardText>
+          <CardSubtitle>
+            {this.state.post.score} points by {this.state.post.by}
+          </CardSubtitle>
         </CardBody>
       </Card>
     );
