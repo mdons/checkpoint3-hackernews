@@ -10,10 +10,16 @@ class App extends Component {
     };
   }
 
+  setSortType = string => {
+    this.setState({
+      sortType: string
+    });
+  };
+
   render() {
     return (
       <div className="App">
-        <Header />
+        <Header setSortType={this.setSortType} />
         <PostListGroup sortType={this.state.sortType} />
       </div>
     );

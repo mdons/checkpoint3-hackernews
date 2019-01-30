@@ -1,12 +1,13 @@
 import React, { Component } from "react";
 import { Spinner, ListGroup, ListGroupItem } from "reactstrap";
 import PostCard from "./PostCard.js";
+import "../style/style.css";
 
 class PostListGroup extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      sortType: this.props.sortType,
+      sortType: props.sortType,
       posts: null
     };
   }
@@ -18,13 +19,20 @@ class PostListGroup extends Component {
         ".json?print=pretty"
     )
       .then(response => {
-        console.log(response);
+        // console.log(response);
         return response.json();
       })
       .then(data => {
-        console.log(data);
+        // console.log(data);
         this.setState({ posts: data });
       });
+  };
+
+  componentWillReceiveProps = props => {
+    this.setState({
+      sortType: props.sortType,
+      posts: null
+    });
   };
 
   componentDidMount = () => {
@@ -33,22 +41,25 @@ class PostListGroup extends Component {
 
   render() {
     if (!this.state.posts) {
+      this.getPosts();
       return (
-        <div style={{ backgroundColor: "#000" }}>
+        <div className="Loading">
           <Spinner style={{ width: "3rem", height: "3rem" }} color="primary" />
         </div>
       );
     }
     return (
-      <ListGroup>
-        {this.state.posts.map(postID => {
-          return (
-            <ListGroupItem key={postID} style={{ backgroundColor: "#000" }}>
-              <PostCard postID={postID} />
-            </ListGroupItem>
-          );
-        })}
-      </ListGroup>
+      <div className="PostListGroup">
+        <ListGroup>
+          {this.state.posts.map(postID => {
+            return (
+              <ListGroupItem key={postID} style={{ backgroundColor: "#000" }}>
+                <PostCard postID={postID} />
+              </ListGroupItem>
+            );
+          })}
+        </ListGroup>
+      </div>
     );
   }
 }

@@ -10,10 +10,12 @@ import {
   DropdownMenu,
   DropdownItem
 } from "reactstrap";
+import "../style/style.css";
 
 class Header extends Component {
   constructor(props) {
     super(props);
+    this.setSortType = props.setSortType;
     this.state = {
       isOpen: false
     };
@@ -27,27 +29,34 @@ class Header extends Component {
 
   render() {
     return (
-      <Navbar color="warning" expand="md" fixed="top">
-        <NavbarBrand>
-          <h1>Hacker News</h1>
-        </NavbarBrand>
-        <NavbarToggler onClick={this.toggle} />
-        <Collapse isOpen={this.state.isOpen} navbar>
-          <Nav className="ml-auto" navbar>
-            <UncontrolledDropdown nav inNavbar>
-              <DropdownToggle nav caret>
-                Options
-              </DropdownToggle>
-              <DropdownMenu right>
-                <DropdownItem>Option 1</DropdownItem>
-                <DropdownItem>Option 2</DropdownItem>
-                <DropdownItem divider />
-                <DropdownItem>Reset</DropdownItem>
-              </DropdownMenu>
-            </UncontrolledDropdown>
-          </Nav>
-        </Collapse>
-      </Navbar>
+      <div className="Header">
+        <Navbar color="warning" expand="md" fixed="top">
+          <NavbarBrand>
+            <h1>Hacker News</h1>
+          </NavbarBrand>
+          <NavbarToggler onClick={this.toggle} />
+          <Collapse isOpen={this.state.isOpen} navbar>
+            <Nav className="ml-auto" navbar>
+              <UncontrolledDropdown nav inNavbar>
+                <DropdownToggle nav caret>
+                  Sort by
+                </DropdownToggle>
+                <DropdownMenu right>
+                  <DropdownItem onClick={() => this.setSortType("topstories")}>
+                    Top
+                  </DropdownItem>
+                  <DropdownItem onClick={() => this.setSortType("beststories")}>
+                    Best
+                  </DropdownItem>
+                  <DropdownItem onClick={() => this.setSortType("newstories")}>
+                    New
+                  </DropdownItem>
+                </DropdownMenu>
+              </UncontrolledDropdown>
+            </Nav>
+          </Collapse>
+        </Navbar>
+      </div>
     );
   }
 }

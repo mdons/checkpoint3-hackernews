@@ -1,3 +1,9 @@
-.ListGroupItem {
-  background-color: "#000";
+.Loading,
+.PostListGroup {
+  height: 90vh;
+  margin-top: 11vh;
+}
+
+.Loading {
+  background-color: black;
 }

@@ -12,8 +12,8 @@ import {
 class PostCard extends Component {
   constructor(props) {
     super(props);
+    this.postID = props.postID;
     this.state = {
-      postID: this.props.postID,
       post: null
     };
   }
@@ -21,15 +21,15 @@ class PostCard extends Component {
   getPost = () => {
     fetch(
       "https://hacker-news.firebaseio.com/v0/item/" +
-        this.state.postID +
+        this.postID +
         ".json?print=pretty"
     )
       .then(response => {
-        console.log(response);
+        // console.log(response);
         return response.json();
       })
       .then(data => {
-        console.log(data);
+        // console.log(data);
         this.setState({ post: data });
       });
   };
@@ -57,7 +57,8 @@ class PostCard extends Component {
             <div dangerouslySetInnerHTML={{ __html: this.state.post.text }} />
           </CardText>
           <CardSubtitle>
-            {this.state.post.score} points by {this.state.post.by}
+            {this.state.post.score} points by {this.state.post.by} on{" "}
+            {new Date(this.state.post.time * 1000).toLocaleString()}
           </CardSubtitle>
         </CardBody>
       </Card>
